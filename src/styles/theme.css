@@ -1,0 +1,121 @@
+@theme {
+  --font-sans: "Poppins", "Montserrat", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: "Montserrat", "Poppins", ui-sans-serif, system-ui, sans-serif;
+  
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+
+  /* Dark Mode Colors (Default) */
+  --color-background: hsl(222, 47%, 11%);
+  --color-foreground: hsl(210, 40%, 98%);
+
+  --color-card: hsl(222, 47%, 11%);
+  --color-card-foreground: hsl(210, 40%, 98%);
+
+  --color-popover: hsl(222, 47%, 11%);
+  --color-popover-foreground: hsl(210, 40%, 98%);
+
+  --color-primary: hsl(0, 72%, 51%);
+  --color-primary-foreground: hsl(210, 40%, 98%);
+
+  --color-secondary: hsl(217, 32%, 17%);
+  --color-secondary-foreground: hsl(210, 40%, 98%);
+
+  --color-muted: hsl(217, 32%, 17%);
+  --color-muted-foreground: hsl(215, 20%, 65%);
+
+  --color-accent: hsl(217, 32%, 17%);
+  --color-accent-foreground: hsl(210, 40%, 98%);
+
+  --color-destructive: hsl(0, 62%, 30%);
+  --color-destructive-foreground: hsl(210, 40%, 98%);
+
+  --color-border: hsl(217, 32%, 17%);
+  --color-input: hsl(217, 32%, 17%);
+  --color-ring: hsl(0, 72%, 51%);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+}
+
+/* Light Mode Colors */
+.light {
+  --color-background: hsl(0, 0%, 100%);
+  --color-foreground: hsl(222, 47%, 11%);
+
+  --color-card: hsl(0, 0%, 100%);
+  --color-card-foreground: hsl(222, 47%, 11%);
+
+  --color-popover: hsl(0, 0%, 100%);
+  --color-popover-foreground: hsl(222, 47%, 11%);
+
+  --color-primary: hsl(0, 72%, 51%);
+  --color-primary-foreground: hsl(0, 0%, 100%);
+
+  --color-secondary: hsl(210, 40%, 96%);
+  --color-secondary-foreground: hsl(222, 47%, 11%);
+
+  --color-muted: hsl(210, 40%, 96%);
+  --color-muted-foreground: hsl(215, 16%, 47%);
+
+  --color-accent: hsl(210, 40%, 96%);
+  --color-accent-foreground: hsl(222, 47%, 11%);
+
+  --color-destructive: hsl(0, 84%, 60%);
+  --color-destructive-foreground: hsl(0, 0%, 100%);
+
+  --color-border: hsl(214, 32%, 91%);
+  --color-input: hsl(214, 32%, 91%);
+  --color-ring: hsl(0, 72%, 51%);
+}
+
+/* Base styles */
+:root {
+  color-scheme: dark;
+}
+
+.light {
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Blinking cursor animation */
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}

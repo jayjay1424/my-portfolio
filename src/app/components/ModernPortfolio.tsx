@@ -228,10 +228,10 @@ export function ModernPortfolio({ onClose }: ModernPortfolioProps) {
       {/* Close Button */}
       <Button
         onClick={onClose}
-        className="fixed top-6 right-6 z-[110] h-12 w-12 rounded-full p-0 bg-white shadow-xl hover:shadow-2xl border-2 border-gray-100"
+        className="fixed top-6 right-6 z-[110] h-12 w-12 rounded-full p-0 bg-gray-900 shadow-xl hover:shadow-2xl border-2 border-blue-500 hover:bg-blue-600 transition-all duration-300"
         variant="outline"
       >
-        <X className="h-6 w-6" />
+        <X className="h-6 w-6 text-white" />
       </Button>
 
       <div className="modern-portfolio h-full">

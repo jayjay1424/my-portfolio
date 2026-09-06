@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { motion } from "motion/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Card, CardContent } from "./ui/card";
@@ -74,13 +75,42 @@ const PhpLogo = () => (
   </svg>
 );
 
+function SkillCard({ skill, index }: { skill: { name: string; logo: ReactNode }; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05 }}
+    >
+      <Card className="group hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 cursor-pointer h-full">
+        <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
+          <motion.div
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+            className="flex items-center justify-center"
+          >
+            {skill.logo}
+          </motion.div>
+          <p className="text-xs md:text-sm font-medium text-center text-muted-foreground group-hover:text-primary transition-colors">
+            {skill.name}
+          </p>
+        </CardContent>
+      </Card>
+    </motion.div>
+  );
+}
+
 export function Skills() {
   const programmingSkills = [
     { name: "HTML5", logo: <HtmlLogo /> },
     { name: "CSS", logo: <CssLogo /> },
     { name: "JavaScript", logo: <JavaScriptLogo /> },
+    { name: "React", logo: <TextLogo text="R" color="#61DAFB" /> },
+    { name: "TypeScript", logo: <TextLogo text="TS" color="#3178C6" /> },
+    { name: "Motion", logo: <TextLogo text="M" color="#F43F5E" /> },
     { name: "Python", logo: <PythonLogo /> },
-    { name: "PHP", logo: <PhpLogo /> },
+    { name: "PHP", logo: <TextLogo text="PHP" color="#777BB4" /> },
     { name: "Node.js", logo: <Server className="w-12 h-12 text-green-600" /> },
     { name: "Bootstrap", logo: <TextLogo text="BS" color="#7952B3" /> },
   ];
@@ -93,7 +123,7 @@ export function Skills() {
   ];
 
   const databaseSkills = [
-    { name: "MySQL", logo: <MySQLLogo /> },
+    { name: "MySQL", logo: <TextLogo text="SQL" color="#00758F" /> },
     { name: "SQL", logo: <Database className="w-12 h-12 text-blue-500" /> },
     { name: "MongoDB", logo: <TextLogo text="MDB" color="#4DB33D" /> },
   ];
@@ -124,6 +154,7 @@ export function Skills() {
     "Continuous Learning",
     "Time Management",
     "Attention to Detail",
+    "SDLC",
   ];
 
   return (
@@ -150,32 +181,23 @@ export function Skills() {
         </TabsList>
 
         <TabsContent value="programming">
-          <p className="text-sm text-muted-foreground mb-6 text-center">Programming Languages & Web Frameworks</p>
-          <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
-            {[...programmingSkills, ...webDevSkills].map((skill, index) => (
-              <motion.div
-                key={skill.name}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <Card className="group hover:border-primary hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 cursor-pointer h-full">
-                  <CardContent className="pt-6 pb-6 flex flex-col items-center gap-3">
-                    <motion.div
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                      className="flex items-center justify-center"
-                    >
-                      {skill.logo}
-                    </motion.div>
-                    <p className="text-xs md:text-sm font-medium text-center text-muted-foreground group-hover:text-primary transition-colors">
-                      {skill.name}
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="space-y-12">
+            <div>
+              <p className="text-sm text-muted-foreground mb-6 text-center">Programming Languages & Frameworks</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-6">
+                {programmingSkills.map((skill, index) => (
+                  <SkillCard key={skill.name} skill={skill} index={index} />
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground mb-6 text-center">Web Development</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 md:gap-6 max-w-4xl mx-auto">
+                {webDevSkills.map((skill, index) => (
+                  <SkillCard key={skill.name} skill={skill} index={index} />
+                ))}
+              </div>
+            </div>
           </div>
         </TabsContent>
 

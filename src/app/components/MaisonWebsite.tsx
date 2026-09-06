@@ -100,10 +100,10 @@ export function MaisonWebsite({ onClose }: MaisonWebsiteProps) {
       {/* Close Button */}
       <Button
         onClick={onClose}
-        className="fixed top-6 right-6 z-[110] h-12 w-12 rounded-full p-0 bg-white shadow-xl hover:shadow-2xl border-2 border-gray-100"
+        className="fixed top-6 right-6 z-[110] h-12 w-12 rounded-full p-0 bg-[#1a1a1a] shadow-xl hover:shadow-2xl border-2 border-[#a67c52] hover:bg-[#a67c52] transition-colors duration-300"
         variant="outline"
       >
-        <X className="h-6 w-6" />
+        <X className="h-6 w-6 text-white" />
       </Button>
 
       {/* Header / Navigation */}

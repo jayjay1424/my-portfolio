@@ -2,7 +2,10 @@ import { motion } from "motion/react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { ExternalLink, Github } from "lucide-react";
+import { Github } from "lucide-react";
+import { CapstoneShowcase } from "./CapstoneShowcase";
+import { SmartWindowShowcase } from "./SmartWindowShowcase";
+import { PortfolioShowcase } from "./PortfolioShowcase";
 
 export function Projects() {
   const projects = [
@@ -12,15 +15,18 @@ export function Projects() {
       description: "Developed an IoT-enabled smart waste management system with automated lid operation and waste-level detection through integrated sensors. Built a responsive web-based administration dashboard for real-time monitoring and notification management. Designed a hybrid power system utilizing solar energy, rechargeable batteries, and manual charging.",
       tags: ["ESP32", "Python (Flask)", "MySQL", "HTML", "CSS", "JavaScript", "IoT", "SDLC"],
       image: "https://images.unsplash.com/photo-1647486146201-838817bfc739?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWFydCUyMGlvdCUyMGRldmljZSUyMHRyYXNoJTIwYmluJTIwcmVjeWNsaW5nfGVufDF8fHx8MTc3MDI5MDEwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      links: { demo: "#", github: "#" }
+      links: { github: "https://github.com/jayjay1424/smart-trash-bin" },
+      hasShowcase: true,
+      showcaseType: "capstone"
     },
     {
       title: "Smart Weather-Triggered Classroom Window System",
       label: "Mini Capstone Project",
-      description: "Developed an IoT-enabled smart window system using ESP32, Python (Flask), MySQL, HTML, CSS, and JavaScript. Built a responsive web-based administration dashboard for real-time monitoring. Implemented automated window control through rain and weather sensor integration following SDLC practices.",
-      tags: ["ESP32", "Python (Flask)", "MySQL", "HTML", "CSS", "JavaScript", "IoT", "Sensor Integration"],
+      description: "A PHP and MySQL demonstration of a smart classroom window control system. Built a responsive administration dashboard with classroom management, weather monitoring, reports, alerts, and window status controls using HTML, CSS, JavaScript, and Bootstrap.",
+      tags: ["PHP", "MySQL", "HTML", "CSS", "JavaScript", "Bootstrap", "Dashboard"],
       image: "https://images.unsplash.com/photo-1635625203639-b793c70ba6c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjbGFzc3Jvb20lMjBzbWFydCUyMHdpbmRvdyUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzcwMjkwMTA0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      links: { demo: "#", github: "#" }
+      links: { github: "https://github.com/jayjay1424/smart_window_system" },
+      hasShowcase: true
     },
     {
       title: "Portfolio Website",
@@ -28,7 +34,9 @@ export function Projects() {
       description: "A responsive personal portfolio website built with modern technologies to showcase projects and skills. Features smooth animations, dark/light mode toggle, AI chatbot assistant, and an interactive gallery.",
       tags: ["React", "TypeScript", "Tailwind CSS", "Motion"],
       image: "https://images.unsplash.com/photo-1744555270794-6d378b9e7cd3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2RpbmclMjBzZXR1cCUyMG1vbml0b3IlMjBkYXJrJTIwYWVzdGhldGljfGVufDF8fHx8MTc3MDI5MDEwNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      links: { demo: "#", github: "#" }
+      links: { github: "https://github.com/jayjay1424/my-porfolio" },
+      hasShowcase: true,
+      showcaseType: "portfolio"
     }
   ];
 
@@ -58,14 +66,27 @@ export function Projects() {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg hover:shadow-primary/10 transition-shadow duration-300">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
-                  <span className="absolute top-3 left-3 px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full">
+                <div className={project.hasShowcase ? "p-3" : "relative h-48 overflow-hidden"}>
+                  {project.showcaseType === "capstone" ? (
+                    <CapstoneShowcase />
+                  ) : project.showcaseType === "portfolio" ? (
+                    <PortfolioShowcase />
+                  ) : project.hasShowcase ? (
+                    <SmartWindowShowcase />
+                  ) : (
+                    <>
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+                    </>
+                  )}
+                  <span className={project.hasShowcase
+                    ? "mt-1 inline-block px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full"
+                    : "absolute top-3 left-3 px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full"}
+                  >
                     {project.label}
                   </span>
                 </div>
@@ -84,17 +105,11 @@ export function Projects() {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex gap-4 pt-0">
-                  <Button size="sm" variant="outline" className="w-full" asChild>
+                <CardFooter className="flex pt-0">
+                  <Button size="sm" variant="outline" className="w-full min-w-0 flex-1" asChild>
                     <a href={project.links.github} target="_blank" rel="noopener noreferrer">
                       <Github className="w-4 h-4 mr-2" />
                       Code
-                    </a>
-                  </Button>
-                  <Button size="sm" className="w-full" asChild>
-                    <a href={project.links.demo} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Demo
                     </a>
                   </Button>
                 </CardFooter>

@@ -80,8 +80,8 @@ export function Hero() {
               </p>
               
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                <Button size="lg" onClick={() => scrollToSection("projects")} className="group">
-                  View Projects
+                <Button size="lg" onClick={() => scrollToSection("skills")} className="group">
+                  View Skills
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <Button size="lg" variant="outline" onClick={() => scrollToSection("contact")}>

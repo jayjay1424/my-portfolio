@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Mail, Facebook, Linkedin, Phone, Send } from "lucide-react";
 import { motion } from "motion/react";
+import emailjs from '@emailjs/browser';
 
 export function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle");
@@ -17,18 +18,22 @@ export function Contact() {
     event.preventDefault();
     const form = event.currentTarget;
 
-    // Submit to Netlify
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams(new FormData(form) as any).toString()
-    })
+    // Send email via EmailJS
+    emailjs
+      .sendForm(
+        'service_8ucsw9j', // EmailJS Service ID
+        'template_cx3h9h8', // EmailJS Template ID
+        form,
+        'wE3sZ8YjVHaXQhYJo' // EmailJS Public Key
+      )
       .then(() => {
         setFormStatus("success");
         form.reset();
         setTimeout(() => setFormStatus("idle"), 5000);
       })
-      .catch(() => setFormStatus("error"));
+      .catch(() => {
+        setFormStatus("error");
+      });
   };
 
   return (
@@ -78,15 +83,9 @@ export function Contact() {
                 Your message will be delivered to jaraldbigno@gmail.com.
               </p>
               <form
-                name="contact"
-                method="POST"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
                 className="space-y-4"
               >
-                <input type="hidden" name="form-name" value="contact" />
-                <input type="hidden" name="bot-field" />
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <label className="space-y-2 text-sm font-medium">

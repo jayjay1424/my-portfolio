@@ -1,7 +1,7 @@
 
   # Portfolio
 
-  This is a code bundle for Portfolio. The original project is available at https://www.figma.com/design/ukLeucGXFGEQZl2ksxd8MG/Portfolio.
+  This is a code bundle for Portfolio. 
 
   ## Running the code
 

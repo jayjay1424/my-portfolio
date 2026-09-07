@@ -31,7 +31,7 @@ export function Contact() {
       // Send email via EmailJS
       const response = await emailjs.sendForm(
         'service_hyy9cgk', // EmailJS Service ID
-        'template_cx3h9h8', // EmailJS Template ID
+        'template_8dk4sgk', // EmailJS Template ID
         form,
         'visitor_my_portfolio' // EmailJS Public Key
       );

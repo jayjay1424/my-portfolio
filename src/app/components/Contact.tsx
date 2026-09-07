@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Mail, Facebook, Linkedin, Phone, Send } from "lucide-react";
@@ -7,6 +7,12 @@ import emailjs from '@emailjs/browser';
 
 export function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('visitor_my_portfolio');
+  }, []);
   const socialLinks = [
     { name: "Facebook", value: "Visit Profile", icon: <Facebook className="h-6 w-6" />, href: "https://www.facebook.com/share/1BJWFJUfhT/" },
     { name: "LinkedIn", value: "Visit Profile", icon: <Linkedin className="h-6 w-6" />, href: "https://linkedin.com/in/jayrald-bonucan-41344839a" },
@@ -14,26 +20,36 @@ export function Contact() {
     { name: "Email", value: "jaraldbigno@gmail.com", icon: <Mail className="h-6 w-6" />, href: "mailto:jaraldbigno@gmail.com" },
   ];
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
 
-    // Send email via EmailJS
-    emailjs
-      .sendForm(
-        'service_8ucsw9j', // EmailJS Service ID
+    setIsSubmitting(true);
+    setFormStatus("idle");
+
+    try {
+      // Send email via EmailJS
+      const response = await emailjs.sendForm(
+        'service_hyy9cgk', // EmailJS Service ID
         'template_cx3h9h8', // EmailJS Template ID
         form,
-        'wE3sZ8YjVHaXQhYJo' // EmailJS Public Key
-      )
-      .then(() => {
-        setFormStatus("success");
-        form.reset();
-        setTimeout(() => setFormStatus("idle"), 5000);
-      })
-      .catch(() => {
-        setFormStatus("error");
+        'visitor_my_portfolio' // EmailJS Public Key
+      );
+
+      console.log('EmailJS Success:', response);
+      setFormStatus("success");
+      form.reset();
+      setTimeout(() => setFormStatus("idle"), 5000);
+    } catch (error: any) {
+      console.error('EmailJS Error Details:', {
+        message: error?.text || error?.message || 'Unknown error',
+        status: error?.status,
+        error: error
       });
+      setFormStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -119,9 +135,9 @@ export function Contact() {
                     className="w-full resize-y rounded-md border border-border bg-background px-3 py-2 font-normal outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </label>
-                <Button type="submit" className="gap-2">
+                <Button type="submit" className="gap-2" disabled={isSubmitting}>
                   <Send className="h-4 w-4" />
-                  Send message
+                  {isSubmitting ? "Sending..." : "Send message"}
                 </Button>
                 {formStatus === "success" && (
                   <p className="text-sm text-green-600" role="status">

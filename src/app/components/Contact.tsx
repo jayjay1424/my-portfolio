@@ -9,7 +9,7 @@ export function Contact() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize EmailJS
+  // Initialize EmailJS with public key
   useEffect(() => {
     emailjs.init('visitor_my_portfolio');
   }, []);

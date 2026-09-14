@@ -6,6 +6,7 @@ import { Github } from "lucide-react";
 import { CapstoneShowcase } from "./CapstoneShowcase";
 import { SmartWindowShowcase } from "./SmartWindowShowcase";
 import { PortfolioShowcase } from "./PortfolioShowcase";
+import { DungeonLegendsShowcase } from "./DungeonLegendsShowcase";
 
 export function Projects() {
   const projects = [
@@ -37,6 +38,16 @@ export function Projects() {
       links: { github: "https://github.com/jayjay1424/my-porfolio" },
       hasShowcase: true,
       showcaseType: "portfolio"
+    },
+    {
+      title: "Dungeon Legends: 2D Pixel RPG",
+      label: "Game Development",
+      description: "A real-time 2D pixel-art Action-RPG web game where players explore dangerous dungeons, fight monsters with real-time combat, collect loot, upgrade equipment, and develop their character through deep RPG progression systems.",
+      tags: ["Next.js 16", "React 19", "TypeScript", "HTML5 Canvas", "Supabase", "Web Audio API"],
+      image: "",
+      links: { github: "#" },
+      hasShowcase: true,
+      showcaseType: "dungeon"
     }
   ];
 
@@ -71,6 +82,8 @@ export function Projects() {
                     <CapstoneShowcase />
                   ) : project.showcaseType === "portfolio" ? (
                     <PortfolioShowcase />
+                  ) : project.showcaseType === "dungeon" ? (
+                    <DungeonLegendsShowcase />
                   ) : project.hasShowcase ? (
                     <SmartWindowShowcase />
                   ) : (
@@ -83,12 +96,14 @@ export function Projects() {
                       <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
                     </>
                   )}
-                  <span className={project.hasShowcase
-                    ? "mt-1 inline-block px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full"
-                    : "absolute top-3 left-3 px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full"}
-                  >
-                    {project.label}
-                  </span>
+                  {project.showcaseType !== "dungeon" && (
+                    <span className={project.hasShowcase
+                      ? "mt-1 inline-block px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full"
+                      : "absolute top-3 left-3 px-2 py-0.5 text-xs font-semibold bg-primary/90 text-primary-foreground rounded-full"}
+                    >
+                      {project.label}
+                    </span>
+                  )}
                 </div>
                 <CardHeader>
                   <CardTitle className="text-base leading-snug">{project.title}</CardTitle>
@@ -105,14 +120,16 @@ export function Projects() {
                     ))}
                   </div>
                 </CardContent>
-                <CardFooter className="flex pt-0">
-                  <Button size="sm" variant="outline" className="w-full min-w-0 flex-1" asChild>
-                    <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-                      <Github className="w-4 h-4 mr-2" />
-                      Code
-                    </a>
-                  </Button>
-                </CardFooter>
+                {project.links.github !== "#" && (
+                  <CardFooter className="flex pt-0">
+                    <Button size="sm" variant="outline" className="w-full min-w-0 flex-1" asChild>
+                      <a href={project.links.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4 mr-2" />
+                        Code
+                      </a>
+                    </Button>
+                  </CardFooter>
+                )}
               </Card>
             </motion.div>
           ))}

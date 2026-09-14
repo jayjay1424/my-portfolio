@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { motion } from "motion/react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Card, CardContent } from "./ui/card";
-import { Database, Server, Globe, Layers, Cpu, Wrench, FileCode, Bot } from "lucide-react";
+import { Database, Server, Globe, Layers, Cpu, Wrench, FileCode, Bot, Gamepad2, Music, Map, Zap, Shield, Brain } from "lucide-react";
 
 const HtmlLogo = () => (
   <svg viewBox="0 0 128 128" className="w-12 h-12">
@@ -126,6 +126,21 @@ export function Skills() {
     { name: "MySQL", logo: <TextLogo text="SQL" color="#00758F" /> },
     { name: "SQL", logo: <Database className="w-12 h-12 text-blue-500" /> },
     { name: "MongoDB", logo: <TextLogo text="MDB" color="#4DB33D" /> },
+    { name: "Supabase", logo: <TextLogo text="SB" color="#3ECF8E" bg="#1C1C1C" /> },
+    { name: "PostgreSQL", logo: <TextLogo text="PG" color="#336791" /> },
+  ];
+
+  const gameDevSkills = [
+    { name: "HTML5 Canvas", logo: <TextLogo text="CVS" color="#FF6B35" /> },
+    { name: "Game Loop (60 FPS)", logo: <Zap className="w-12 h-12 text-yellow-400" /> },
+    { name: "2D Pixel Art", logo: <Gamepad2 className="w-12 h-12 text-purple-400" /> },
+    { name: "Enemy AI (FSM)", logo: <Brain className="w-12 h-12 text-red-400" /> },
+    { name: "Collision Detection", logo: <Shield className="w-12 h-12 text-blue-400" /> },
+    { name: "RPG Progression", logo: <Map className="w-12 h-12 text-green-400" /> },
+    { name: "Web Audio API", logo: <Music className="w-12 h-12 text-pink-400" /> },
+    { name: "Supabase (BaaS)", logo: <TextLogo text="SB" color="#3ECF8E" bg="#1C1C1C" /> },
+    { name: "Entity Management", logo: <Layers className="w-12 h-12 text-amber-400" /> },
+    { name: "Next.js", logo: <TextLogo text="NX" color="#ffffff" bg="#000000" /> },
   ];
 
   const iotSkills = [
@@ -173,9 +188,10 @@ export function Skills() {
       </motion.div>
 
       <Tabs defaultValue="programming" className="w-full max-w-5xl mx-auto">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-12 h-auto gap-1">
+        <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 mb-12 h-auto gap-1">
           <TabsTrigger value="programming">Languages</TabsTrigger>
           <TabsTrigger value="database">Database & IoT</TabsTrigger>
+          <TabsTrigger value="gamedev">Game Dev</TabsTrigger>
           <TabsTrigger value="tools">Tools</TabsTrigger>
           <TabsTrigger value="professional">Professional</TabsTrigger>
         </TabsList>
@@ -256,6 +272,30 @@ export function Skills() {
                       </CardContent>
                     </Card>
                   </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="gamedev">
+          <div className="space-y-8">
+            <div className="max-w-3xl mx-auto rounded-2xl border border-amber-500/20 bg-amber-500/5 p-6 text-center">
+              <div className="flex items-center justify-center gap-2 text-amber-500 mb-3">
+                <Gamepad2 className="w-5 h-5" />
+                <span className="font-semibold">Dungeon Legends: 2D Pixel RPG</span>
+              </div>
+              <p className="text-sm leading-relaxed text-muted-foreground">
+                Building a real-time 2D action RPG with TypeScript, React, and HTML5 Canvas.
+                The project combines responsive game systems, pixel-art presentation, audio, and cloud-backed player data.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm text-muted-foreground mb-6 text-center">Game Development Skills Applied</p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 md:gap-6">
+                {gameDevSkills.map((skill, index) => (
+                  <SkillCard key={skill.name} skill={skill} index={index} />
                 ))}
               </div>
             </div>

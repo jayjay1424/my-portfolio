@@ -5,19 +5,11 @@ import profileImage from "figma:asset/53a348a80dad588bbce5f099c566b261729ec38f.p
 import profileImageLight from "figma:asset/6e19c255cac6f038e0a55798f1797a3ac3834f4b.png";
 import { TypeWriter } from "./TypeWriter";
 import { useTheme } from "./ThemeProvider";
-import { RESUME_B64 } from "../resumeData";
-
 function downloadResume() {
-  const byteChars = atob(RESUME_B64);
-  const byteArr = new Uint8Array(byteChars.length);
-  for (let i = 0; i < byteChars.length; i++) byteArr[i] = byteChars.charCodeAt(i);
-  const blob = new Blob([byteArr], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
+  a.href = "/Jayrald_Bonucan_Resume.pdf";
   a.download = "Jayrald_Bonucan_Resume.pdf";
   a.click();
-  URL.revokeObjectURL(url);
 }
 
 export function Hero() {
@@ -63,11 +55,10 @@ export function Hero() {
               </div>
               <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
                 Hello, I'm <br />
-                <TypeWriter 
+                <TypeWriter
                   texts={[
                     "Web Developer",
                     "Graphic Designer",
-                    "Video Editor",
                     "Jayrald Bonucan"
                   ]}
                   typingSpeed={100}

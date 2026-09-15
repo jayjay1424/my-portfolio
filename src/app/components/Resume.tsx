@@ -1,30 +1,17 @@
 import { Button } from "./ui/button";
 import { FileText, Download } from "lucide-react";
 import { motion } from "motion/react";
-import { RESUME_B64 } from "../resumeData";
-import resumePreview from "../../imports/Bonucan_Jayrald_Resume.pdf.png";
+const resumeUrl = "/Jayrald_Bonucan_Resume.pdf";
 
 function downloadResume() {
-  const byteChars = atob(RESUME_B64);
-  const byteArr = new Uint8Array(byteChars.length);
-  for (let i = 0; i < byteChars.length; i++) byteArr[i] = byteChars.charCodeAt(i);
-  const blob = new Blob([byteArr], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
-  a.href = url;
+  a.href = resumeUrl;
   a.download = "Jayrald_Bonucan_Resume.pdf";
   a.click();
-  URL.revokeObjectURL(url);
 }
 
 function viewResume() {
-  const byteChars = atob(RESUME_B64);
-  const byteArr = new Uint8Array(byteChars.length);
-  for (let i = 0; i < byteChars.length; i++) byteArr[i] = byteChars.charCodeAt(i);
-  const blob = new Blob([byteArr], { type: "application/pdf" });
-  const url = URL.createObjectURL(blob);
-  window.open(url, "_blank", "noopener,noreferrer");
-  setTimeout(() => URL.revokeObjectURL(url), 60000);
+  window.open(resumeUrl, "_blank", "noopener,noreferrer");
 }
 
 export function Resume() {
@@ -45,10 +32,10 @@ export function Resume() {
               title="Click to view resume"
             >
               <div className="relative overflow-hidden rounded-xl border-2 border-border group-hover:border-primary shadow-xl group-hover:shadow-primary/20 transition-all duration-300 w-48 md:w-56">
-                <img
-                  src={resumePreview}
-                  alt="Resume Preview"
-                  className="w-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                <iframe
+                  src={`${resumeUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                  title="Jayrald Bonucan resume preview"
+                  className="pointer-events-none h-72 w-full border-0 transition-transform duration-300 group-hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-2 text-white">

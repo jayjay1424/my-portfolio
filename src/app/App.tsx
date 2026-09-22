@@ -11,6 +11,7 @@ import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ChatBot } from "./components/ChatBot";
+import { BackToTop } from "./components/BackToTop";
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         </main>
         <Footer />
         <ChatBot />
+        <BackToTop />
         <Toaster position="top-center" />
       </div>
     </ThemeProvider>

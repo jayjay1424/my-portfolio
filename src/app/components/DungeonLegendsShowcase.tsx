@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Play, Maximize2, Sword, Zap } from "lucide-react";
 import { DungeonLegendsModal } from "./DungeonLegendsModal";
 
@@ -6,6 +6,12 @@ export function DungeonLegendsShowcase() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (isModalOpen && videoRef.current) {
+      videoRef.current.pause();
+    }
+  }, [isModalOpen]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -45,7 +51,7 @@ export function DungeonLegendsShowcase() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500" />
             </span>
-            In Development
+            75% Complete · Playable
           </span>
         </div>
 
@@ -102,12 +108,12 @@ export function DungeonLegendsShowcase() {
         <div className="border-t border-white/10 bg-slate-900/90 px-4 py-3">
           <div className="flex items-center justify-between mb-1.5">
             <span className="text-xs text-slate-400">Development Progress</span>
-            <span className="text-xs font-semibold text-amber-400">50%</span>
+            <span className="text-xs font-semibold text-amber-400">75%</span>
           </div>
           <div className="h-1.5 w-full rounded-full bg-slate-700 overflow-hidden">
             <div
               className="h-full rounded-full bg-gradient-to-r from-amber-500 to-orange-400"
-              style={{ width: "50%" }}
+              style={{ width: "75%" }}
             />
           </div>
         </div>

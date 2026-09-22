@@ -5,6 +5,7 @@ import {
   Code2,
   Cpu,
   Database,
+  Gamepad2,
   Laptop,
   Wrench,
   type LucideIcon,
@@ -17,14 +18,15 @@ type SkillGroup = {
 };
 
 const skillGroups: SkillGroup[] = [
-  { title: "Programming Languages", icon: Braces, skills: ["Python", "JavaScript", "TypeScript", "PHP", "HTML5", "CSS3"] },
-  { title: "Frameworks & Libraries", icon: Code2, skills: ["Next.js", "React.js", "Node.js", "Flask", "Django", "Bootstrap", "Framer Motion"] },
-  { title: "Database & Backend", icon: Database, skills: ["PostgreSQL", "Supabase", "MySQL", "MongoDB", "REST API Development", "CRUD Operations", "Authentication Systems"] },
-  { title: "Web Development", icon: Laptop, skills: ["Web Development", "Full-Stack Web Development", "Frontend Development", "Backend Development", "Responsive Web Design", "Web Application Development", "API Integration"] },
+  { title: "Web Development", icon: Laptop, skills: ["Full-Stack Web Development", "Frontend Engineering", "Backend Development", "Responsive Web Design", "RESTful API Integration", "SPA & SSR Architecture"] },
+  { title: "Frameworks & Libraries", icon: Code2, skills: ["React.js", "Next.js", "Node.js", "Tailwind CSS", "Bootstrap", "Framer Motion", "Flask", "Django"] },
+  { title: "Programming Languages", icon: Braces, skills: ["JavaScript", "TypeScript", "Python", "PHP", "HTML5", "CSS3", "SQL"] },
+  { title: "Database & Backend", icon: Database, skills: ["PostgreSQL", "Supabase", "MySQL", "MongoDB", "REST APIs", "CRUD Operations", "Authentication Systems"] },
+  { title: "Development & Cloud Tools", icon: Wrench, skills: ["Git", "GitHub", "Vercel", "Visual Studio Code", "Figma", "Canva"] },
+  { title: "Interactive Web & Canvas", icon: Gamepad2, skills: ["HTML5 Canvas API", "Real-Time 60 FPS Loop", "Web Audio API", "Finite State Machines", "Collision Systems", "Interactive Graphics"] },
   { title: "AI & Automation Tools", icon: Bot, skills: ["AI-Assisted Development", "Antigravity", "ChatGPT", "Claude", "GitHub Copilot"] },
-  { title: "Hardware & IoT", icon: Cpu, skills: ["ESP32 Development", "IoT System Development", "Embedded Systems", "Sensor Integration", "Hardware Prototyping"] },
-  { title: "Development Tools", icon: Wrench, skills: ["Git", "GitHub", "Visual Studio Code", "Vercel", "Figma", "Canva"] },
-  { title: "Productivity Tools", icon: Laptop, skills: ["Microsoft Office Suite", "Microsoft Word", "Microsoft Excel", "Microsoft PowerPoint"] },
+  { title: "Hardware & IoT Systems", icon: Cpu, skills: ["ESP32 Development", "IoT System Integration", "Embedded Sensors", "Hardware Prototyping"] },
+  { title: "Productivity Tools", icon: Laptop, skills: ["Microsoft Office Suite", "Word", "Excel", "PowerPoint"] },
 ];
 
 export function Skills() {

@@ -62,19 +62,17 @@ export function Hero() {
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight">
                 Hello, I'm <br />
-                <span className="bg-gradient-to-r from-primary via-blue-500 to-indigo-500 bg-clip-text text-transparent">
-                  <TypeWriter
-                    texts={[
-                      "Jayrald Bonucan",
-                      "Full-Stack Web Developer",
-                      "Frontend & UI/UX Developer",
-                      "Backend & API Engineer"
-                    ]}
-                    typingSpeed={85}
-                    deletingSpeed={50}
-                    pauseDuration={2200}
-                  />
-                </span>
+                <TypeWriter
+                  texts={[
+                    "Jayrald Bonucan",
+                    "Full-Stack Web Developer",
+                    "Frontend & UI/UX Developer",
+                    "Backend & API Engineer"
+                  ]}
+                  typingSpeed={85}
+                  deletingSpeed={50}
+                  pauseDuration={2200}
+                />
               </h1>
 
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">

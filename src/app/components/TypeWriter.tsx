@@ -5,13 +5,15 @@ interface TypeWriterProps {
   typingSpeed?: number;
   deletingSpeed?: number;
   pauseDuration?: number;
+  className?: string;
 }
 
 export function TypeWriter({ 
   texts, 
-  typingSpeed = 150, 
-  deletingSpeed = 100, 
-  pauseDuration = 2000 
+  typingSpeed = 85, 
+  deletingSpeed = 50, 
+  pauseDuration = 2200,
+  className = "",
 }: TypeWriterProps) {
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,11 +61,14 @@ export function TypeWriter({
   }, [displayText, currentIndex, isDeleting, isPaused, texts, typingSpeed, deletingSpeed, pauseDuration]);
 
   return (
-    <span className="inline-flex items-center">
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">
+    <span className={`inline ${className}`}>
+      <span className="bg-gradient-to-r from-primary via-blue-500 to-indigo-500 bg-clip-text text-transparent">
         {displayText}
       </span>
-      <span className="ml-1 w-0.5 h-12 md:h-16 bg-primary animate-blink"></span>
+      <span
+        className="inline-block w-[3px] sm:w-[4px] h-[0.88em] ml-1 bg-primary animate-blink align-[-0.08em] select-none"
+        aria-hidden="true"
+      />
     </span>
   );
 }

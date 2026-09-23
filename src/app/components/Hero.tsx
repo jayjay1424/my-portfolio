@@ -65,9 +65,7 @@ export function Hero() {
                 <TypeWriter
                   texts={[
                     "Jayrald Bonucan",
-                    "Full-Stack Web Developer",
-                    "Frontend & UI/UX Developer",
-                    "Backend & API Engineer"
+                    "Full-Stack Web Developer"
                   ]}
                   typingSpeed={85}
                   deletingSpeed={50}

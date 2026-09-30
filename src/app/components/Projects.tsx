@@ -10,6 +10,7 @@ import { PortfolioShowcase } from "./PortfolioShowcase";
 import { DungeonLegendsShowcase } from "./DungeonLegendsShowcase";
 import { DungeonLegendsModal } from "./DungeonLegendsModal";
 import { JobTrackerShowcase } from "./JobTrackerShowcase";
+import { PinoyOnlineShopShowcase } from "./PinoyOnlineShopShowcase";
 
 type ProjectCategory = "all" | "web" | "game" | "iot";
 
@@ -30,7 +31,9 @@ export function Projects() {
       links: {
         github: "https://github.com/jayjay1424/pinoy-online-shop",
         live: "https://pinoy-online-shop-m94gl4gms-jayjay1424.vercel.app/"
-      }
+      },
+      hasShowcase: true,
+      showcaseType: "pinoy-online-shop"
     },
     {
       id: "job-tracker",
@@ -186,6 +189,8 @@ export function Projects() {
                   <div className={project.hasShowcase ? "p-3 pb-0" : "relative h-52 overflow-hidden"}>
                     {project.showcaseType === "job-tracker" ? (
                       <JobTrackerShowcase />
+                    ) : project.showcaseType === "pinoy-online-shop" ? (
+                      <PinoyOnlineShopShowcase />
                     ) : project.showcaseType === "dungeon" ? (
                       <DungeonLegendsShowcase />
                     ) : project.showcaseType === "capstone" ? (

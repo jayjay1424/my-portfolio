@@ -1,0 +1,84 @@
+import { useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight, Maximize2, ShoppingBag, X } from "lucide-react";
+import { Button } from "./ui/button";
+
+import frameOne from "../../assets/gallery/pinoy-online-shop/frame-1.png";
+import frameTwo from "../../assets/gallery/pinoy-online-shop/frame-2.png";
+import frameThree from "../../assets/gallery/pinoy-online-shop/frame-3.png";
+
+const frames = [
+  { src: frameOne, alt: "Likha Atelier 3D product detail experience" },
+  { src: frameTwo, alt: "Likha Atelier heritage product catalog" },
+  { src: frameThree, alt: "Likha Atelier Philippine artisan story section" },
+];
+
+export function PinoyOnlineShopShowcase() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % frames.length);
+    }, 4500);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const showPrevious = () => setActiveIndex((current) => (current - 1 + frames.length) % frames.length);
+  const showNext = () => setActiveIndex((current) => (current + 1) % frames.length);
+  const activeFrame = frames[activeIndex];
+
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-[#8b653d]/40 bg-[#21130d] shadow-xl">
+      <div className="flex items-center justify-between border-b border-[#d5a45a]/20 bg-[#2b190f] px-4 py-3">
+        <div className="flex items-center gap-2 text-sm font-semibold text-[#f5e7cf]">
+          <ShoppingBag className="h-4 w-4 text-[#d5a45a]" />
+          Likha Atelier / Pinoy Online Shop
+        </div>
+        <span className="text-xs text-[#c9a979]">{activeIndex + 1} / {frames.length}</span>
+      </div>
+
+      <div className="relative aspect-[16/9] bg-[#4b352a]">
+        <button
+          type="button"
+          onClick={() => setIsExpanded(true)}
+          className="group absolute inset-0 z-[1] flex items-center justify-center"
+          aria-label={`Expand ${activeFrame.alt}`}
+        >
+          <img src={activeFrame.src} alt={activeFrame.alt} className="h-full w-full object-contain transition-opacity duration-300" />
+          <span className="absolute bottom-3 right-3 flex items-center gap-2 rounded-full bg-[#21130d]/85 px-3 py-1.5 text-xs font-medium text-[#f5e7cf] opacity-0 transition-opacity group-hover:opacity-100">
+            <Maximize2 className="h-3.5 w-3.5" />
+            Expand image
+          </span>
+        </button>
+        <Button type="button" size="icon" variant="secondary" onClick={showPrevious} aria-label="Show previous Pinoy Online Shop screenshot" className="absolute left-3 top-1/2 z-10 h-9 w-9 -translate-y-1/2 rounded-full bg-[#21130d]/85 text-[#f5e7cf] hover:bg-[#d5a45a] hover:text-[#21130d]">
+          <ChevronLeft className="h-5 w-5" />
+        </Button>
+        <Button type="button" size="icon" variant="secondary" onClick={showNext} aria-label="Show next Pinoy Online Shop screenshot" className="absolute right-3 top-1/2 z-10 h-9 w-9 -translate-y-1/2 rounded-full bg-[#21130d]/85 text-[#f5e7cf] hover:bg-[#d5a45a] hover:text-[#21130d]">
+          <ChevronRight className="h-5 w-5" />
+        </Button>
+      </div>
+
+      <div className="flex items-center justify-center gap-2 border-t border-[#d5a45a]/20 bg-[#2b190f] px-4 py-3">
+        {frames.map((frame, index) => (
+          <button key={frame.alt} type="button" onClick={() => setActiveIndex(index)} aria-label={`Show Pinoy Online Shop screenshot ${index + 1}`} aria-current={activeIndex === index} className={`h-2 rounded-full transition-all ${activeIndex === index ? "w-7 bg-[#d5a45a]" : "w-2 bg-[#8b653d] hover:bg-[#f5e7cf]"}`} />
+        ))}
+      </div>
+
+      {isExpanded && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-[#21130d]/95 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label={activeFrame.alt} onClick={() => setIsExpanded(false)}>
+          <button type="button" onClick={() => setIsExpanded(false)} aria-label="Close expanded screenshot" className="absolute right-5 top-5 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-[#d5a45a] hover:text-[#21130d]">
+            <X className="h-6 w-6" />
+          </button>
+          <img src={activeFrame.src} alt={activeFrame.alt} className="max-h-full max-w-full object-contain" onClick={(event) => event.stopPropagation()} />
+          <button type="button" onClick={(event) => { event.stopPropagation(); showPrevious(); }} aria-label="Show previous expanded screenshot" className="absolute left-5 top-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-[#d5a45a] hover:text-[#21130d]">
+            <ChevronLeft className="h-7 w-7" />
+          </button>
+          <button type="button" onClick={(event) => { event.stopPropagation(); showNext(); }} aria-label="Show next expanded screenshot" className="absolute right-5 top-1/2 rounded-full bg-white/10 p-3 text-white transition hover:bg-[#d5a45a] hover:text-[#21130d]">
+            <ChevronRight className="h-7 w-7" />
+          </button>
+          <p className="absolute bottom-5 left-1/2 max-w-[90vw] -translate-x-1/2 rounded-full bg-black/60 px-4 py-2 text-center text-sm text-white">{activeFrame.alt}</p>
+        </div>
+      )}
+    </div>
+  );
+}

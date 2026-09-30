@@ -19,6 +19,20 @@ export function Projects() {
 
   const projects = [
     {
+      id: "pinoy-online-shop",
+      category: "web" as ProjectCategory,
+      title: "Pinoy Online Shop: Likha Atelier",
+      label: "Web Development",
+      badgeColor: "bg-rose-500/15 text-rose-400 border-rose-500/30",
+      description: "A Philippine-inspired luxury e-commerce website for discovering and shopping locally crafted products. The platform combines a 3D storefront experience with product browsing, secure authentication, PostgreSQL inventory management, and a Vercel-ready serverless API.",
+      tags: ["React", "Vite", "Tailwind CSS", "Three.js", "GSAP", "PostgreSQL", "JWT", "Vercel"],
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+      links: {
+        github: "https://github.com/jayjay1424/pinoy-online-shop",
+        live: "https://pinoy-online-shop-m94gl4gms-jayjay1424.vercel.app/"
+      }
+    },
+    {
       id: "job-tracker",
       category: "web" as ProjectCategory,
       title: "Job Tracker: Career Pipeline & Analytics OS",

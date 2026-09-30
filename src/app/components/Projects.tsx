@@ -23,7 +23,7 @@ export function Projects() {
       id: "pinoy-online-shop",
       category: "web" as ProjectCategory,
       title: "Pinoy Online Shop: Likha Atelier",
-      label: "Web Development",
+      label: "Full-Stack Web Application",
       badgeColor: "bg-rose-500/15 text-rose-400 border-rose-500/30",
       description: "A Philippine-inspired luxury e-commerce website for discovering and shopping locally crafted products. The platform combines a 3D storefront experience with product browsing, secure authentication, PostgreSQL inventory management, and a Vercel-ready serverless API.",
       tags: ["React", "Vite", "Tailwind CSS", "Three.js", "GSAP", "PostgreSQL", "JWT", "Vercel"],

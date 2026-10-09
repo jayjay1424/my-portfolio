@@ -66,9 +66,15 @@ export function About() {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {interests.map((item) => (
-                  <span key={item} className="px-3 py-1 bg-background border border-border rounded-full text-sm font-medium">
+                  <motion.span
+                    key={item}
+                    whileHover={{ scale: 1.06, y: -2 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                    className="cursor-default px-3 py-1 bg-background border border-border/80 rounded-full text-sm font-medium hover:border-primary/40 hover:text-primary transition-colors"
+                  >
                     {item}
-                  </span>
+                  </motion.span>
                 ))}
               </div>
             </div>
@@ -78,8 +84,8 @@ export function About() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: 0.25, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <GraduationCap className="text-primary h-5 w-5" />
@@ -87,14 +93,20 @@ export function About() {
               </h3>
               <div className="space-y-4">
               {education.map((edu, index) => (
-                <Card key={index} className="border-l-4 border-l-primary">
-                  <CardContent className="pt-6">
-                    <h4 className="font-bold text-lg">{edu.degree}</h4>
-                    <p className="text-primary font-medium">{edu.school}</p>
-                    <p className="text-sm text-muted-foreground mb-2">{edu.year}</p>
-                    {edu.description && <p className="text-muted-foreground">{edu.description}</p>}
-                  </CardContent>
-                </Card>
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -3 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                >
+                  <Card className="border-l-4 border-l-primary hover:shadow-md transition-shadow">
+                    <CardContent className="pt-6">
+                      <h4 className="font-bold text-lg">{edu.degree}</h4>
+                      <p className="text-primary font-medium">{edu.school}</p>
+                      <p className="text-sm text-muted-foreground mb-2">{edu.year}</p>
+                      {edu.description && <p className="text-muted-foreground">{edu.description}</p>}
+                    </CardContent>
+                  </Card>
+                </motion.div>
               ))}
               </div>
             </motion.div>
@@ -102,20 +114,25 @@ export function About() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: 0.35, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
                 <Target className="text-primary h-5 w-5" />
                 Career Goals
               </h3>
-              <Card>
-                <CardContent className="pt-6">
-                  <p className="text-muted-foreground">
-                    To contribute technical expertise in an entry-level IT, Software Development, Web Development, Technical Support, or QA role — applying full-stack development, IoT integration, and digital marketing skills to drive meaningful impact.
-                  </p>
-                </CardContent>
-              </Card>
+              <motion.div
+                whileHover={{ y: -3 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <Card className="hover:shadow-md transition-shadow">
+                  <CardContent className="pt-6">
+                    <p className="text-muted-foreground">
+                      To contribute technical expertise in an entry-level IT, Software Development, Web Development, Technical Support, or QA role — applying full-stack development, IoT integration, and digital marketing skills to drive meaningful impact.
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
           </div>
         </div>

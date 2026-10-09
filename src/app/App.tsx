@@ -12,11 +12,15 @@ import { Toaster } from "./components/ui/sonner";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { ChatBot } from "./components/ChatBot";
 import { BackToTop } from "./components/BackToTop";
+import { PageIntro } from "./components/PageIntro";
+import { CustomCursor } from "./components/CustomCursor";
 
 export default function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="portfolio-theme">
       <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30">
+        <PageIntro />
+        <CustomCursor />
         <Header />
         <main>
           <Hero />

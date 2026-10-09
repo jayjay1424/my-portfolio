@@ -121,9 +121,11 @@ export function Header() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.1, rotate: 15 }}
+              whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-border/60 bg-background/60 hover:bg-muted transition-all duration-200 hover:scale-105"
+              className="p-2 rounded-full border border-border/60 bg-background/60 hover:bg-muted transition-colors duration-200"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? (
@@ -131,15 +133,18 @@ export function Header() {
               ) : (
                 <Moon className="h-4 w-4 text-muted-foreground hover:text-primary transition-colors" />
               )}
-            </button>
-            <Button onClick={() => scrollToSection("#contact")} size="sm" className="rounded-full shadow-sm hover:shadow-primary/20">
-              Hire Me
-            </Button>
+            </motion.button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button onClick={() => scrollToSection("#contact")} size="sm" className="rounded-full shadow-sm hover:shadow-primary/20">
+                Hire Me
+              </Button>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-2">
-            <button
+            <motion.button
+              whileTap={{ scale: 0.9 }}
               onClick={toggleTheme}
               className="p-2 rounded-lg hover:bg-muted transition-colors"
               aria-label="Toggle theme"
@@ -149,14 +154,15 @@ export function Header() {
               ) : (
                 <Moon className="h-5 w-5" />
               )}
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.9 }}
               className="text-foreground p-2"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </button>
+            </motion.button>
           </div>
         </div>
 
@@ -167,14 +173,18 @@ export function Header() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border overflow-hidden"
             >
               <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
-                {navItems.map((item) => {
+                {navItems.map((item, index) => {
                   const isActive = activeSection === item.href.replace("#", "");
                   return (
-                    <button
+                    <motion.button
                       key={item.name}
+                      initial={{ opacity: 0, x: -16 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.04, duration: 0.25, ease: "easeOut" }}
                       onClick={() => scrollToSection(item.href)}
                       className={cn(
                         "text-left py-2.5 px-3 rounded-lg text-sm font-medium transition-colors flex items-center justify-between",
@@ -185,12 +195,19 @@ export function Header() {
                     >
                       <span>{item.name}</span>
                       {isActive && <span className="h-1.5 w-1.5 rounded-full bg-primary" />}
-                    </button>
+                    </motion.button>
                   );
                 })}
-                <Button onClick={() => scrollToSection("#contact")} className="w-full mt-2 rounded-lg">
-                  Hire Me
-                </Button>
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navItems.length * 0.04, duration: 0.25 }}
+                  className="mt-2"
+                >
+                  <Button onClick={() => scrollToSection("#contact")} className="w-full rounded-lg">
+                    Hire Me
+                  </Button>
+                </motion.div>
               </div>
             </motion.div>
           )}

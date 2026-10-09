@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -13,6 +13,60 @@ import { JobTrackerShowcase } from "./JobTrackerShowcase";
 import { PinoyOnlineShopShowcase } from "./PinoyOnlineShopShowcase";
 
 type ProjectCategory = "all" | "web" | "game" | "iot";
+
+function ProjectCardWrapper({ children }: { children: React.ReactNode }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [spotlight, setSpotlight] = useState({ x: 0, y: 0, opacity: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotX = ((y - centerY) / centerY) * -3.5;
+    const rotY = ((x - centerX) / centerX) * 3.5;
+
+    setRotateX(rotX);
+    setRotateY(rotY);
+    setSpotlight({ x, y, opacity: 1 });
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+    setSpotlight((prev) => ({ ...prev, opacity: 0 }));
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{
+        rotateX,
+        rotateY,
+      }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+      style={{ transformStyle: "preserve-3d" }}
+      className="relative h-full rounded-xl interactive-card"
+    >
+      <div
+        className="pointer-events-none absolute -inset-px rounded-xl opacity-0 transition-opacity duration-300 z-20"
+        style={{
+          opacity: spotlight.opacity,
+          background: `radial-gradient(400px circle at ${spotlight.x}px ${spotlight.y}px, rgba(59, 130, 246, 0.12), transparent 80%)`,
+        }}
+      />
+      {children}
+    </motion.div>
+  );
+}
 
 export function Projects() {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all");
@@ -152,39 +206,49 @@ export function Projects() {
           {filterCategories.map((tab) => {
             const isActive = activeCategory === tab.id;
             return (
-              <button
+              <motion.button
                 key={tab.id}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(tab.id as ProjectCategory)}
-                className={`relative px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 flex items-center gap-2 border ${
+                className={`relative px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors duration-200 flex items-center gap-2 border ${
                   isActive
-                    ? "bg-primary text-primary-foreground border-primary shadow-md shadow-primary/25"
+                    ? "border-primary text-primary-foreground shadow-md shadow-primary/25"
                     : "bg-background/80 hover:bg-muted border-border/80 text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <span>{tab.label}</span>
-                <span className={`text-[11px] px-1.5 py-0.2 rounded-full ${
+                {isActive && (
+                  <motion.div
+                    layoutId="activeProjectCategory"
+                    className="absolute inset-0 bg-primary rounded-full -z-10 shadow-sm"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+                <span className={`relative z-10 text-[11px] px-1.5 py-0.2 rounded-full ${
                   isActive ? "bg-primary-foreground/20 text-primary-foreground" : "bg-muted text-muted-foreground"
                 }`}>
                   {tab.count}
                 </span>
-              </button>
+              </motion.button>
             );
           })}
         </div>
 
         {/* Balanced Grid */}
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.94 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                exit={{ opacity: 0, scale: 0.94 }}
                 transition={{ duration: 0.35, delay: index * 0.05 }}
               >
-                <Card className="h-full flex flex-col overflow-hidden border-border/70 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 group bg-card/80 backdrop-blur-sm">
+                <ProjectCardWrapper>
+                <Card className="h-full flex flex-col overflow-hidden border-border/70 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 group bg-card/85 backdrop-blur-md">
                   {/* Media / Showcase Top Area */}
                   <div className={project.hasShowcase ? "p-3 pb-0" : "relative h-52 overflow-hidden"}>
                     {project.showcaseType === "job-tracker" ? (
@@ -302,6 +366,7 @@ export function Projects() {
                     )}
                   </CardFooter>
                 </Card>
+                </ProjectCardWrapper>
               </motion.div>
             ))}
           </AnimatePresence>

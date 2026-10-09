@@ -33,9 +33,10 @@ export function Skills() {
   return (
     <section id="skills" className="py-20 container mx-auto px-4 md:px-6">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="text-center mb-16"
       >
         <h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-4">My Skills</h2>
@@ -49,23 +50,34 @@ export function Skills() {
         {skillGroups.map(({ title, icon: Icon, skills }, index) => (
           <motion.article
             key={title}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.06 }}
-            className="rounded-2xl border border-border bg-card p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:shadow-lg hover:shadow-primary/10"
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -4 }}
+            className="group rounded-2xl border border-border/80 bg-card/90 backdrop-blur-sm p-6 shadow-sm transition-all duration-300 hover:border-primary/60 hover:shadow-xl hover:shadow-primary/5"
           >
             <div className="flex items-center gap-3 mb-5">
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <motion.span
+                whileHover={{ rotate: 8, scale: 1.15 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary border border-primary/20 shadow-sm"
+              >
                 <Icon className="h-5 w-5" />
-              </span>
-              <h3 className="font-semibold text-lg">{title}</h3>
+              </motion.span>
+              <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">{title}</h3>
             </div>
             <ul className="flex flex-wrap gap-2" aria-label={title}>
               {skills.map((skill) => (
-                <li key={skill} className="rounded-full border border-border bg-background px-3 py-1.5 text-sm text-muted-foreground">
+                <motion.li
+                  key={skill}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  className="cursor-default rounded-full border border-border/80 bg-background/80 px-3 py-1.5 text-xs sm:text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground hover:bg-primary/5"
+                >
                   {skill}
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.article>

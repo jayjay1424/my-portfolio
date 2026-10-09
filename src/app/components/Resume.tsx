@@ -57,13 +57,17 @@ export function Resume() {
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-6">
-                <Button size="lg" className="gap-2" onClick={downloadResume}>
-                  <Download className="w-4 h-4" />
-                  Download Resume
-                </Button>
-                <Button size="lg" variant="outline" className="gap-2" asChild>
-                  <a href="#contact">Hire Me Now</a>
-                </Button>
+                <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.96 }}>
+                  <Button size="lg" className="gap-2" onClick={downloadResume}>
+                    <Download className="w-4 h-4" />
+                    Download Resume
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.96 }}>
+                  <Button size="lg" variant="outline" className="gap-2" asChild>
+                    <a href="#contact">Hire Me Now</a>
+                  </Button>
+                </motion.div>
               </div>
             </div>
           </div>

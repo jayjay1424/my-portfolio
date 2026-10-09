@@ -51,38 +51,40 @@ export function Contact() {
       </div>
 
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {socialLinks.map((link, index) => (
-              <a
-                key={index}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-4 p-6 bg-card border border-border rounded-xl hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg hover:shadow-primary/10 transition-all group"
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {socialLinks.map((link, index) => (
+            <motion.a
+              key={index}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: index * 0.08, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ scale: 1.04, y: -4 }}
+              whileTap={{ scale: 0.96 }}
+              className="flex items-center gap-4 p-6 bg-card/90 backdrop-blur-sm border border-border/80 rounded-xl hover:border-primary/50 hover:bg-primary/5 hover:shadow-xl hover:shadow-primary/10 transition-colors group cursor-pointer"
+            >
+              <motion.div
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                className="p-3 bg-primary/10 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
               >
-                <div className="p-3 bg-primary/10 rounded-full text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  {link.icon}
-                </div>
+                {link.icon}
+              </motion.div>
 
-                <div className="overflow-hidden">
-                  <h3 className="font-semibold group-hover:text-primary transition-colors">
-                    {link.name}
-                  </h3>
+              <div className="overflow-hidden">
+                <h3 className="font-semibold group-hover:text-primary transition-colors">
+                  {link.name}
+                </h3>
 
-                  <p className="text-sm text-muted-foreground truncate">
-                    {link.value}
-                  </p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </motion.div>
+                <p className="text-sm text-muted-foreground truncate">
+                  {link.value}
+                </p>
+              </div>
+            </motion.a>
+          ))}
+        </div>
       </div>
     </section>
   );
